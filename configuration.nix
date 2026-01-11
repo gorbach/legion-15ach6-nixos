@@ -88,6 +88,13 @@
     ];
   };
 
+  programs.ssh = {
+    startAgent = false;  # Use GNOME Keyring instead
+    extraConfig = ''
+      AddKeysToAgent yes
+    '';
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
