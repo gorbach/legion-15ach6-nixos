@@ -37,7 +37,9 @@ in
     slack
     spotify
     obsidian
+    super-productivity
     syncthing
+    youtube-music          # Pear Desktop (YouTube Music client)
 
     # --- .NET Development ---
     jetbrains.rider
@@ -58,6 +60,7 @@ in
     # --- Enhanced CLI Tools ---
     starship          # Modern shell prompt
     lazygit           # Terminal UI for git
+    sourcegit         # GUI client for Git
     btop              # System monitor
     tldr              # Simplified man pages
     eza               # Modern ls replacement
