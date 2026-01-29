@@ -92,6 +92,8 @@ in
     ripgrep
     fd
 
+    tor-browser
+
     # gnome
     # --- GNOME Customization Tools ---
     gnome-tweaks          # Essential tool for fonts, themes, and windows
