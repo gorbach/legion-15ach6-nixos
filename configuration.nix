@@ -98,6 +98,12 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  # Enable AppImage support
+  programs.appimage = {
+    enable = true;
+    binfmt = true;  # Allow running AppImages directly
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
