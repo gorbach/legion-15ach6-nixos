@@ -47,6 +47,12 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # GNOME settings overrides
+  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+    [org.gnome.desktop.screensaver]
+    lock-delay=uint32 30
+  '';
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
