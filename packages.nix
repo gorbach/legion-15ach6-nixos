@@ -59,13 +59,15 @@ in
     python3Packages.pip
 
     # --- Enhanced CLI Tools ---
-    starship          # Modern shell prompt
     lazygit           # Terminal UI for git
     sourcegit         # GUI client for Git
     btop              # System monitor
     tldr              # Simplified man pages
     eza               # Modern ls replacement
     bat               # Cat with syntax highlighting
+
+    # --- Fish Shell Plugins ---
+    fishPlugins.tide  # Modern prompt theme for Fish
 
 
     # --- Bleeding Edge Tools ---
@@ -127,37 +129,52 @@ in
     nerd-fonts.symbols-only
   ];
 
-  # 4. Shell Configuration
+  # 4. Fish Shell Configuration
+  programs.fish = {
+    enable = true;
+
+    # Shell initialization for interactive sessions
+    interactiveShellInit = ''
+      # Disable fish greeting
+      set -g fish_greeting
+
+      # Yazi shell wrapper - allows changing directory on exit
+      # Usage: Use 'y' instead of 'yazi' to launch the file manager
+      # Press 'q' to quit and change to the last directory
+      # Press 'Q' to quit without changing directory
+      function y
+        set tmp (mktemp -t "yazi-cwd.XXXXXX")
+        command yazi $argv --cwd-file="$tmp"
+        if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+          builtin cd -- "$cwd"
+        end
+        rm -f -- "$tmp"
+      end
+
+      # Modern CLI tool abbreviations
+      # These expand when you type them, showing the actual command
+      abbr -a ls 'eza --icons'
+      abbr -a ll 'eza -l --icons --git'
+      abbr -a la 'eza -la --icons --git'
+      abbr -a lt 'eza --tree --icons'
+      abbr -a cat 'bat'
+    '';
+
+    # Shell environment setup (runs for all fish sessions)
+    shellInit = ''
+      # Add npm global bin to PATH
+      fish_add_path $HOME/.npm-global/bin
+    '';
+  };
+
+  # 5. Bash Configuration (kept as fallback)
+  # Note: Fish is now the default shell, but bash remains available for scripts
   programs.bash.interactiveShellInit = ''
-    # Yazi shell wrapper - allows changing directory on exit
-    # Usage: Use 'y' instead of 'yazi' to launch the file manager
-    # Press 'q' to quit and change to the last directory
-    # Press 'Q' to quit without changing directory
-    function y() {
-      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-      yazi "''$@" --cwd-file="''$tmp"
-      IFS= read -r -d "" cwd < "''$tmp"
-      if test -n "''$cwd" && test "''$cwd" != "''$PWD"; then
-        builtin cd -- "''$cwd"
-      fi
-      rm -f -- "''$tmp"
-    }
-
-    # Add npm global bin to PATH
-    export PATH="''$HOME/.npm-global/bin:''$PATH"
-
-    # Enable Starship prompt
-    eval "$(starship init bash)"
-
-    # Modern CLI replacements
-    alias ls='eza --icons'
-    alias ll='eza -l --icons --git'
-    alias la='eza -la --icons --git'
-    alias lt='eza --tree --icons'
-    alias cat='bat'
+    # Minimal bash config for system scripts and fallback use
+    export PATH="$HOME/.npm-global/bin:$PATH"
   '';
 
-  # 5. NPM Global Packages Configuration
+  # 6. NPM Global Packages Configuration
   environment.sessionVariables.NPM_CONFIG_PREFIX = "$HOME/.npm-global";
 
   # Remove default GNOME applications
