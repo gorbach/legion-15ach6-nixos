@@ -16,8 +16,11 @@
     # REQUIRED: Enable modesetting (crucial for Wayland and VA-API)
     modesetting.enable = true;
 
-    # Power management (optional, helps with battery life)
+    # Power management (helps with suspend/resume)
     powerManagement.enable = true;
+
+    # Keep driver loaded for faster wake and consistent display state
+    nvidiaPersistenced = true;
 
     # REQUIRED for driver >= 560: Use open source kernel modules
     # Recommended by Nvidia for RTX 3050 (Ampere architecture)
