@@ -40,6 +40,7 @@ in
     super-productivity
     syncthing
     youtube-music          # Pear Desktop (YouTube Music client)
+    dbeaver-bin            # Database management tool
 
     # --- .NET Development ---
     jetbrains.rider
@@ -71,9 +72,16 @@ in
     # We install Claude from 'unstable' so you get the latest updates
     unstable.claude-code
 
+    # --- AI Coding Assistants ---
+    codex                  # OpenAI Codex CLI
+    opencode               # AI coding assistant
+
+    # --- PowerShell ---
+    powershell             # Microsoft PowerShell
 
     # --- Docker ---
     docker-compose         # Docker Compose
+
     unstable.ghostty       # Bleeding edge terminal for Wayland
     neovim                 # Base Neovim package
 
@@ -135,6 +143,9 @@ in
       rm -f -- "''$tmp"
     }
 
+    # Add npm global bin to PATH
+    export PATH="''$HOME/.npm-global/bin:''$PATH"
+
     # Enable Starship prompt
     eval "$(starship init bash)"
 
@@ -145,6 +156,9 @@ in
     alias lt='eza --tree --icons'
     alias cat='bat'
   '';
+
+  # 5. NPM Global Packages Configuration
+  environment.sessionVariables.NPM_CONFIG_PREFIX = "$HOME/.npm-global";
 
   # Remove default GNOME applications
   environment.gnome.excludePackages = with pkgs; [

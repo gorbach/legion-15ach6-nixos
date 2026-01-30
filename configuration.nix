@@ -113,6 +113,9 @@
     binfmt = true;  # Allow running AppImages directly
   };
 
+  # Enable nix-ld for running dynamically linked binaries (npm, pip packages, etc.)
+  programs.nix-ld.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
