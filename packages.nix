@@ -71,6 +71,9 @@ in
     # We install Claude from 'unstable' so you get the latest updates
     unstable.claude-code
 
+
+    # --- Docker ---
+    docker-compose         # Docker Compose
     unstable.ghostty       # Bleeding edge terminal for Wayland
     neovim                 # Base Neovim package
 

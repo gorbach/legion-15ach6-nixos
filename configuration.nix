@@ -88,7 +88,7 @@
   users.users.gor = {
     isNormalUser = true;
     description = "gor";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -103,6 +103,9 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Enable Docker
+  virtualisation.docker.enable = true;
 
   # Enable AppImage support
   programs.appimage = {
