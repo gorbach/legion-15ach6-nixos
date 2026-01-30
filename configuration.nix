@@ -104,6 +104,12 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  # OpenVPN 3 client with D-Bus service
+  programs.openvpn3.enable = true;
+
+  # Required for OpenVPN 3 to work properly
+  services.resolved.enable = true;
+
   # Enable Docker
   virtualisation.docker.enable = true;
 
