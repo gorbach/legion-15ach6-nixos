@@ -41,6 +41,7 @@ in
     syncthing
     youtube-music          # Pear Desktop (YouTube Music client)
     dbeaver-bin            # Database management tool
+    onlyoffice-desktopeditors # ONLYOFFICE Desktop Editors (binary)
 
     # --- .NET Development ---
     jetbrains.rider
