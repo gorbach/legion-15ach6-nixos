@@ -6,15 +6,17 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Choose one based on your BIOS settings:
       # ./legion-hardware-hybrid.nix      # For AMD iGPU + Nvidia dGPU (PRIME)
-      ./legion-hardware-nvidia-only.nix   # For Nvidia-only mode (AMD disabled in BIOS)
-      ./nuphy-keyboard.nix                # NuPhy Air keyboard configuration
+      ./legion-hardware-nvidia-only.nix # For Nvidia-only mode (AMD disabled in BIOS)
+      ./nuphy-keyboard.nix # NuPhy Air keyboard configuration
+      ./suspend-inhibit-after-resume.nix # Workaround for resume->immediate suspend loops
       ./packages.nix
       ./locale.nix
-      ./syncthing.nix                     # Syncthing file synchronization
+      ./syncthing.nix # Syncthing file synchronization
     ];
 
   # Bootloader.
@@ -45,6 +47,9 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
+  # Work around "resume -> login -> immediate suspend again" loops by disabling
+  # GDM's own inactivity auto-suspend on the greeter.
+  services.displayManager.gdm.autoSuspend = false;
   services.xserver.desktopManager.gnome.enable = true;
 
   # GNOME settings overrides
