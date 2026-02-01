@@ -93,15 +93,15 @@
   users.users.gor = {
     isNormalUser = true;
     description = "gor";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "video" ];
     shell = pkgs.fish;
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
   programs.ssh = {
-    startAgent = false;  # Use GNOME Keyring instead
+    startAgent = false; # Use GNOME Keyring instead
     extraConfig = ''
       AddKeysToAgent yes
     '';
@@ -122,11 +122,18 @@
   # Enable AppImage support
   programs.appimage = {
     enable = true;
-    binfmt = true;  # Allow running AppImages directly
+    binfmt = true; # Allow running AppImages directly
   };
 
   # Enable nix-ld for running dynamically linked binaries (npm, pip packages, etc.)
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    fontconfig
+    freetype
+    libpng
+    expat
+    zlib
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -134,8 +141,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
