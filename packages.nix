@@ -31,6 +31,7 @@ in
     zip
     unzip
     p7zip
+    icu
 
     # --- Applications ---
     telegram-desktop
@@ -103,6 +104,9 @@ in
     imagemagick          # Font and image preview
 
     # Build essentials for NvChad (Treesitter, etc.)
+    fontconfig
+    freetype
+    pkg-config
     gcc
     gnumake
     unzip
